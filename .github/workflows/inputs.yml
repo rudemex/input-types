@@ -6,26 +6,50 @@ on:
       environment:
         type: environment
         description: Select the environment
+        required: true
+        default: production
       boolean:
         type: boolean
         description: True or False
+        required: true
+        default: false
       choice:
         type: choice
         description: Make a choice
         options:
-        - foo
-        - bar
-        - baz
+          - foo
+          - bar
+          - baz
+        required: true
+        default: foo
+      string:
+        type: string
+        description: Enter a string value
+        required: true
+        default: default-string
+      number:
+        type: number
+        description: Enter a number
+        required: false
+        default: 42
+      datetime:
+        type: datetime
+        description: Select a date and time
+        required: false
+        default: '2025-01-17T12:00:00Z'
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - name: greet
-        run: | 
+      - name: Greet
+        run: |
           echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
-          echo "boolean is ${{ github.event.inputs.boolean }}" / ${{ inputs.boolean }} 
-          echo "choice is ${{ github.event.inputs.choice }}" / ${{ inputs.choice }}
-          
+          echo "boolean is ${{ github.event.inputs.boolean }} / ${{ inputs.boolean }}"
+          echo "choice is ${{ github.event.inputs.choice }} / ${{ inputs.choice }}"
+          echo "string is ${{ github.event.inputs.string }} / ${{ inputs.string }}"
+          echo "number is ${{ github.event.inputs.number }} / ${{ inputs.number }}"
+          echo "datetime is ${{ github.event.inputs.datetime }} / ${{ inputs.datetime }}"
